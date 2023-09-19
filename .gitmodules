@@ -1,0 +1,3 @@
+[submodule "auth-backend"]
+	path = auth-backend
+	url = https://github.com/juanjgfredes/auth-backend.git
