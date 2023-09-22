@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
@@ -17,11 +17,24 @@ export class LoginPageComponent {
   public router = inject( Router );
 
   public myForm: FormGroup = this.fb.group({
-    email: ['s@gmail.com', [ Validators.required, Validators.email ]],
-    password: ['jbiubij', [ Validators.required, Validators.minLength(6) ]],
+    email: ['', [ Validators.required, Validators.email ]],
+    password: ['', [ Validators.required, Validators.minLength(6) ]],
   });
 
+  get password() {
+    return this.myForm.controls['password'];
+  }
+
+  get email() {
+    return this.myForm.controls['email'];
+  }
+
   login(): void {
+    if( !this.myForm.valid ) {
+      this.myForm.markAllAsTouched();
+      return;
+    }
+
     const { email, password } = this.myForm.value;
     this.authSerivice.login( email, password )
     .subscribe({
