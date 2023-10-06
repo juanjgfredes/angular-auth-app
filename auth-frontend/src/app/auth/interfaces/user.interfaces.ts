@@ -1,9 +1,0 @@
-
-
-export interface User {
-  id:       string;
-  name:     string;
-  email:    string;
-  isActive: boolean;
-  roles:    string[];
-}
